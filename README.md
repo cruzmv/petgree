@@ -1,12 +1,12 @@
-sb-admin 2 Bootstrap template for ASP MVC
+Petgree Project upon sb-admin 2 Bootstrap template for ASP MVC 5
 =====
 
-sb-admin 2 Bootstrap template with ASP MVC 5
+Pedigree issue project
 
 ### Features
-- sb-admin 2 bootstrap template.
-- ASP MVC 5.
-- Dynamic Navbar.
+- Contac's register.
+- Cat's register.
+- Pedigree emission.
 
 ### Screenshot
 
