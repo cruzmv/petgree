@@ -1,0 +1,459 @@
+﻿@{
+    ViewBag.Title = "People";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page Head -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- People list -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @ViewBag.Title
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <button class="btn btn-primary" type="button" onclick="selectPerson(0)">New</button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="table_list_people">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Nick</th>
+                                <th>Cnjp</th>
+                                <th>ie</th>
+                                <th>Cattery's Register</th>
+                                <th>City</th>
+                                <th>Region</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+<!-- Contact's profile -->
+<div class="modal fade" id="contactsProfile" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="contactsProfile">&times;</button>
+                <h4 class="modal-title">Person</h4>
+            </div>
+
+
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Address</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Contacts</a></li>
+                    <li><a data-toggle="tab" href="#menu3">Obs</a></li>
+                </ul>
+                <form>
+                    <div class="tab-content">
+                        <!-- Profile -->
+                        <div id="home" class="tab-pane fade in active">
+                            <div class="container-fluid">
+                                <div class="row" style="padding-top:12px;">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" id="id" placeholder="0" disabled>
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group text-center">
+                                            <label>Person:</label>
+                                            <br />
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-primary form-check-label" id="lbFisica">
+                                                    <input class="form-check-input" type="radio" name="options" id="fisica" autocomplete="off" checked> Física
+                                                </label>
+                                                <label class="btn btn-primary form-check-label" id="lbJuridica">
+                                                    <input class="form-check-input" type="radio" name="options" id="juridica" autocomplete="off"> Jurídica
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group text-center">
+                                            <label>Gender:</label>
+                                            <br />
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-primary form-check-label" id="lbMale">
+                                                    <input class="form-check-input" type="radio" name="gender" id="Male" autocomplete="off" checked> Male
+                                                </label>
+                                                <label class="btn btn-primary form-check-label" id="lbFemale">
+                                                    <input class="form-check-input" type="radio" name="gender" id="Female" autocomplete="off"> Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+
+                                        <div class="form-group">
+                                            <label for="nickname">Nick Name:</label>
+                                            <input type="text" class="form-control" id="nickname">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                        <div class="form-group">
+                                            <label for="cattery">Caterry:</label>
+                                            <input type="text" class="form-control" id="cattery">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="cattery_register">Caterry Register:</label>
+                                            <input type="text" class="form-control" id="cattery_register">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="cpf">CPF:</label>
+                                            <input type="text" class="form-control" id="cpf">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="ie">IE:</label>
+                                            <input type="text" class="form-control" id="ie">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label for="birth">Birth Date:</label>
+                                        <div class="input-group date" id="birth" data-date-format="dd-mm-yyyy">
+                                            <input type="text" class="form-control" id="birth_input">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label for="birth">Register Date:</label>
+                                        <div class="input-group date" id="register" data-date-format="dd-mm-yyyy">
+                                            <input type="text" class="form-control" id="register_input">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address-->
+                        <div id="menu1" class="tab-pane fade">
+                            <div class="container-fluid">
+                                <div class="row" style="padding-top:12px;">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="street">Street:</label>
+                                            <input type="text" class="form-control" id="street">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="number">Number:</label>
+                                            <input type="text" class="form-control" id="number">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="district">District:</label>
+                                            <input type="text" class="form-control" id="district">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="complement">Complement:</label>
+                                            <input type="text" class="form-control" id="complement">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="city">City:</label>
+                                            <input type="text" class="form-control" id="city">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="state">State:</label>
+                                            <select class="form-control" id="state">
+                                                <option>UF</option>
+                                                <option>RO</option>
+                                                <option>AC</option>
+                                                <option>AM</option>
+                                                <option>RR</option>
+                                                <option>PA</option>
+                                                <option>AP</option>
+                                                <option>TO</option>
+                                                <option>MA</option>
+                                                <option>PI</option>
+                                                <option>CE</option>
+                                                <option>RN</option>
+                                                <option>PB</option>
+                                                <option>PE</option>
+                                                <option>AL</option>
+                                                <option>SE</option>
+                                                <option>BA</option>
+                                                <option>MG</option>
+                                                <option>ES</option>
+                                                <option>RJ</option>
+                                                <option>SP</option>
+                                                <option>PR</option>
+                                                <option>SC</option>
+                                                <option>RS</option>
+                                                <option>MS</option>
+                                                <option>MT</option>
+                                                <option>GO</option>
+                                                <option>DF</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="post-code">Poste Code:</label>
+                                            <input type="text" class="form-control" id="post-code">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="country">Country:</label>
+                                            <select class="form-control" id="country">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contacts -->
+                        <div id="menu2" class="tab-pane fade">
+                            <div class="container-fluid">
+
+                                <div class="dataTable_wrapper">
+                                    <table class="table table-striped table-bordered table-hover" id="table_person_contact">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Contact</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn btn-success" onclick="selectContact()">New</button>
+
+                            </div>
+                        </div>
+
+                        <!-- Obs -->
+                        <div id="menu3" class="tab-pane fade">
+                            <div class="container-fluid">
+                                <div class="row" style="padding-top: 10px;">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" placeholder="Observations" id="obs" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="salveContact()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Contacts edit -->
+<div class="modal fade" id="contact_edit" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="contact_edit">&times;</button>
+                <h4 class="modal-title">Contact</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="contact_type">Type:</label>
+                                    <input type="hidden" class="form-control" id="contact_id">
+                                    <input type="text" class="form-control" id="contact_type" placeholder="type">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="contact_contact">Contact:</label>
+                                    <input type="text" class="form-control" id="contact_contact" placeholder="Contact">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add this action to the line -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveContactsContac()">Save</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Message yes | no-->
+<div class="modal fade" id="msg_yes_no" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="msg_yes_no">&times;</button>
+                <h4 class="modal-title" id="msg_yes_no_title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <input type="hidden" id="message_key" />
+                        <input type="hidden" id="message_id" />
+                        <h3 id="yes_no_text"></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Add this action to the line -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_yes" onclick="msg_yes()">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    petgree = petData.get();
+    if (petgree == null)
+        petgree = petgreeData;
+
+    $(document).ready(function () {
+
+        if (petgree.listPeople == null)
+            listPeople(true);
+        else
+            showListContact();
+
+
+        $('#table_list_people').DataTable({
+            'processing': true,
+            'language': {
+                'loadingRecords': '&nbsp;',
+                'processing': 'Loading...',
+                "searching": true
+            }
+        });
+
+
+    });
+
+    $('#birth').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: true,
+    });
+
+    $('#register').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: true,
+    });
+
+
+
+
+    let dropdown = $('#country');
+    dropdown.empty();
+
+    dropdown.append('<option selected="true" disabled>Choose Country</option>');
+    dropdown.prop('selectedIndex', 0);
+
+    const url = '/Content/json/country.json';
+
+    // Populate dropdown with list of provinces
+    $.getJSON(url, function (data) {
+        $.each(data, function (key, entry) {
+            dropdown.append($('<option></option>').attr('value', entry.code).text(entry.name));
+        })
+    });
+
+
+
+</script>

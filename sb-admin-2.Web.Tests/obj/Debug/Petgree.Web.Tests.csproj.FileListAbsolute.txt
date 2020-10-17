@@ -1,0 +1,4 @@
+C:\Onys\Petgree\lab\template\sbadmin\sb-admin-2-bootstrap-template-asp-mvc\sb-admin-2.Web.Tests\obj\Debug\Petgree.Web.Tests.csprojAssemblyReference.cache
+C:\Onys\Petgree\lab\template\sbadmin\sb-admin-2-bootstrap-template-asp-mvc\sb-admin-2.Web.Tests\obj\Debug\Petgree.Web.Tests.csproj.CoreCompileInputs.cache
+C:\Onys\Petgree\lab\template\sbadmin\sb-admin-2-bootstrap-template-asp-mvc\sb-admin-2.Web.Tests\obj\Debug\sb-admin-2.Web.Tests.dll
+C:\Onys\Petgree\lab\template\sbadmin\sb-admin-2-bootstrap-template-asp-mvc\sb-admin-2.Web.Tests\obj\Debug\sb-admin-2.Web.Tests.pdb

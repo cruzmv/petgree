@@ -1,0 +1,719 @@
+﻿
+@{
+    ViewBag.Title = "Cats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Head -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+</div>
+
+<!-- Cat's List -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @ViewBag.Title
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <button class="btn btn-primary" type="button" onclick="loadcat(new Cat(0))">New</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="table_listCats">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Pedigree</th>
+                                <th>Arrival Date</th>
+                                <th>Name</th>
+                                <th>Birth Day</th>
+                                <th>Race</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- Cat's profile -->
+<div class="modal fade" id="catsProfile" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="catsProfile">&times;</button>
+                <h4 class="modal-title">Cat Register</h4>
+            </div>
+
+
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Cat</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Properties</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Contacts</a></li>
+                    <li><a data-toggle="tab" href="#menu3">Obs</a></li>
+                </ul>
+                <form>
+                    <div class="tab-content">
+                        <!-- Cat -->
+                        <div id="home" class="tab-pane fade in active">
+
+                            <!-- Cats data -->
+                            <div class="media" style="padding-top: 20px;">
+                                <div class="media-left">
+                                    <img src="@Url.Content("~/Content/Images/catshadow.jpg")" class="media-object" style="width:180px">
+
+                                </div>
+                                <div class="media-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="id">ID:</label>
+                                                <input type="text" class="form-control" id="id" placeholder="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="race">Race:</label>
+                                                <select class="form-control" id="race">
+                                                    <option>None</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+
+                                            <label for="birth">Birth Date:</label>
+                                            <div class="input-group date" id="birth" data-date-format="dd-mm-yyyy">
+                                                <input type="text" class="form-control" id="birth_input">
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+
+                                            <label for="arrivel">Arrivel Date:</label>
+                                            <div class="input-group date" id="arrivel">
+                                                <input type="text" class="form-control" id="arrivel_input">
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="pedigree">Pedigree:</label>
+                                                <input type="text" class="form-control" id="pedigree" placeholder="Pedigree">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="microship">Microship:</label>
+                                                <input type="text" class="form-control" id="microship" placeholder="Microship">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Cat's name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Father -->
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-lg-8">
+                                    <div class="form-group input-group">
+                                        <label for="father">Father</label>
+                                        <input type="text" class="form-control" id="father" placeholder="Father's name">
+                                        <input type="hidden" class="form-control" id="father_id">
+                                        <span class="input-group-btn" style="padding-top: 24px;">
+                                            <button class="btn btn-default" type="button" id="father_btn" onclick="searchCat('father')">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="father_race">Father's Race:</label>
+                                        <input type="hidden" id="father_race_id" disabled>
+                                        <input type="text" class="form-control" id="father_race" placeholder="Father's race" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mother-->
+                            <div class="row" style="padding-top: 5px;">
+                                <div class="col-lg-8">
+                                    <div class="form-group input-group">
+                                        <label for="mother">Mother</label>
+                                        <input type="text" class="form-control" id="mother" placeholder="Mother's name">
+                                        <input type="hidden" class="form-control" id="mother_id">
+                                        <span class="input-group-btn" style="padding-top: 24px;">
+                                            <button class="btn btn-default" type="button" id="mother_btn" onclick="searchCat('mother')">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="mother_race">Mothers's Race:</label>
+                                        <input type="hidden" id="mother_race_id" disabled>
+                                        <input type="text" class="form-control" id="mother_race" placeholder="Mother's race" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Properties-->
+                        <div id="menu1" class="tab-pane fade">
+                            <div class="container-fluid">
+
+                                <!-- color | marks -->
+                                <div class="row" style="padding-top: 5px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <label for="color">Color</label>
+                                            <input type="text" class="form-control" id="color" placeholder="Cats's color">
+                                            <input type="hidden" class="form-control" id="color_id">
+                                            <span class="input-group-btn" style="padding-top: 25.5px;">
+                                                <button class="btn btn-default" type="button" id="color_btn" onclick="searchPropertie('Color')">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <label for="mark">Marks</label>
+                                            <input type="text" class="form-control" id="mark" placeholder="Cats's marks">
+                                            <input type="hidden" class="form-control" id="mark_id">
+                                            <span class="input-group-btn" style="padding-top: 25.5px;">
+                                                <button class="btn btn-default" type="button" id="mark_btn" onclick="searchPropertie('Mark')">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- particolor | patter -->
+                                <div class="row" style="padding-top: 5px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <label for="particolor">Particolor</label>
+                                            <input type="text" class="form-control" id="particolor" placeholder="Cats's particolor">
+                                            <input type="hidden" class="form-control" id="particolor_id">
+                                            <span class="input-group-btn" style="padding-top: 25.5px;">
+                                                <button class="btn btn-default" type="button" id="particolor_btn" onclick="searchPropertie('Particolor')">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <label for="pather">Patter</label>
+                                            <input type="text" class="form-control" id="pather" placeholder="Cats's patter">
+                                            <input type="hidden" class="form-control" id="pather_id">
+                                            <span class="input-group-btn" style="padding-top: 25.5px;">
+                                                <button class="btn btn-default" type="button" id="pather_btn" onclick="searchPropertie('Pather')">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- sex | eyes-->
+                                <div class="row" style="padding-top: 5px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sex">Sex:</label>
+                                            <select class="form-control" id="sex">
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group input-group">
+                                            <label for="eyes">Eyes:</label>
+                                            <input type="text" class="form-control" id="eyes" placeholder="Cats's eyes">
+                                            <input type="hidden" class="form-control" id="eyes_id">
+                                            <input type="hidden" class="form-control" id="eyes_sigla">
+                                            <span class="input-group-btn" style="padding-top: 25.5px;">
+                                                <button class="btn btn-default" type="button" id="eyes_btn" onclick="searchPropertie('Eyes')">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- breeder | country -->
+                                <div class="row" style="padding-top: 5px;">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="breeder">Breeder:</label>
+                                            <select class="form-control" id="breeder">
+                                                <option>For Breeder</option>
+                                                <option>Not for Breeder</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="country">Country Origin:</label>
+                                            <select class="form-control" id="country">
+                                                <option>Brazil</option>
+                                                <option>Portugal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Contacts -->
+                        <div id="menu2" class="tab-pane fade">
+                            <div class="container-fluid">
+
+                                <!-- Caterry -->
+                                <div class="row" style="padding-top: 5px;">
+                                    <!-- Cattery's ID -->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="cattery_id">Cattery:</label>
+                                            <input type="text" class="form-control" id="cattery_id" placeholder="0" disabled>
+                                        </div>
+                                    </div>
+                                    <!-- Cattery's Name -->
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label for="cattery">&nbsp;</label>
+                                            <div class="form-group input-group">
+                                                <input type="text" class="form-control" id="cattery" placeholder="Cattery's name">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="cattery_btn" onclick="searchContact('cattery')">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Creator -->
+                                <div class="row" style="padding-top: 5px;">
+                                    <!-- Creator ID -->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="creator_id">Creator:</label>
+                                            <input type="text" class="form-control" id="creator_id" placeholder="0" disabled>
+                                        </div>
+                                    </div>
+                                    <!-- Creator Name -->
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label for="creator">&nbsp;</label>
+                                            <div class="form-group input-group">
+                                                <input type="text" class="form-control" id="creator" placeholder="Creator's name">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="creator_btn" onclick="searchContact('creator')">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Proprietarie -->
+                                <div class="row" style="padding-top: 5px;">
+                                    <!-- Proprietarie ID -->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="proprietary_id">Proprietary:</label>
+                                            <input type="text" class="form-control" id="proprietary_id" placeholder="0" disabled>
+                                        </div>
+                                    </div>
+                                    <!-- Proprietarie Name -->
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label for="proprietary">&nbsp;</label>
+                                            <div class="form-group input-group">
+                                                <input type="text" class="form-control" id="proprietary" placeholder="Proprietary's name">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="proprietary_btn" onclick="searchContact('proprietary')">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Obs -->
+                        <div id="menu3" class="tab-pane fade">
+                            <div class="container-fluid">
+                                <div class="row" style="padding-top: 10px;">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" placeholder="Observations" id="obs" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="pedigree()">Pedigree</button>
+                <button type="button" class="btn btn-success" onclick="salveCat()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cat search -->
+<div class="modal fade" id="cat_search" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="cat_search">&times;</button>
+                <h4 class="modal-title">Search</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="table_cat_search">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Pedigree</th>
+                                        <th>Name</th>
+                                        <th>Race</th>
+                                        <th>Color</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Properties search -->
+<div class="modal fade" id="prop_search" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="modal-title" id="prop_tit">Search</h4>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <button type="button" class="btn btn-primary" onclick="editProp()">New</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="close" data-dismiss="prop_search">&times;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="table_prop_search">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>SG</th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add this action to the line -->
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Contact Search -->
+<div class="modal fade" id="contact_search" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="contact_search">&times;</button>
+                <h4 class="modal-title">Search</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="table_contact_search">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Nick</th>
+                                        <th>Cnpj</th>
+                                        <th>ie</th>
+                                        <th>Cattery's Register</th>
+                                        <th>City</th>
+                                        <th>Region</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Properties edit -->
+<div class="modal fade" id="prop_edit" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="prop_edit">&times;</button>
+                <h4 class="modal-title" id="prop_tit_edit">Search</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="prop_description">Description:</label>
+                                    <input type="hidden" id="prop_id">
+                                    <input type="text" class="form-control" id="prop_description" placeholder="Description">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="prop_sigla">Sigla:</label>
+                                    <input type="text" class="form-control" id="prop_sigla" placeholder="Sigla">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add this action to the line -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="prop_save" onclick="saveProp()">Save</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Message yes | no-->
+<div class="modal fade" id="msg_yes_no" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="msg_yes_no">&times;</button>
+                <h4 class="modal-title" id="msg_yes_no_title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <input type="hidden" id="message_key" />
+                        <input type="hidden" id="message_id" />
+                        <h3 id="yes_no_text"></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Add this action to the line -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_yes" onclick="msg_yes()">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="waitscreen">
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Javascript -->
+<script>
+    var cat_selected = null;
+    var contact_selected = null;
+
+    var $body = $("body");
+
+    petgree = petData.get();
+    if (petgree == null)
+        petgree = petgreeData;
+
+    $(document).ready(function () {
+        
+
+        if (petgree.listCats == null)
+            listCats(true);
+        else
+            showListCats();
+        if (petgree.listPeople == null)
+            listPeople(false);
+        if (petgree.listColors == null)
+            listProperties("Color");
+        if (petgree.listMarks == null)
+            listProperties("Mark");
+        if (petgree.listPartiColor == null)
+            listProperties("Particolor");
+        if (petgree.listPatter == null)
+            listProperties("Pather");
+        if (petgree.listEyes == null)
+            listProperties("Eyes");
+        if (petgree.listRaces == null)
+            listraces();
+
+
+
+        //console.log("ready!");
+        //$('#table_listCats').DataTable({
+        //    "searching": true
+        //});
+
+    });
+
+    //$body.addClass("loading");
+
+    
+    //if (JSON.parse(sessionStorage.getItem("petgreelist")) == null) {
+    //} else {
+    //    
+    //}
+    
+
+
+    $('#birth').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: true,
+    });
+
+    $('#arrivel').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: true,
+    });
+
+
+
+
+
+    $('#birth').on('changeDate', function () {
+        $('#birth_input').val(
+            $('#birth').datepicker('getFormattedDate')
+        );
+    });
+
+    $('#arrivel').on('changeDate', function () {
+        $('#arrivel_input').val(
+            $('#arrivel').datepicker('getFormattedDate')
+        );
+    });
+
+    //$body.removeClass("loading");
+
+
+</script>

@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <!-- Cat's name -->
+    <div class="row pedigree_row" style="height: 40px; margin-top:20px;">
+        <div class="col-sm-10 text-center">
+            <i>@ViewBag.pedigree.cat.name</i>
+        </div>
+    </div>
+
+    <!-- Cat's Properties -->
+    <div class="row pedigree_row" style="height: 70px">
+        <div class="col-sm-4" style="font-size: 10px;">
+            <b>Cor:</b>@ViewBag.pedigree.cat.color.description<br />
+            <b>Raça:</b>@ViewBag.pedigree.cat.race.description<br />
+            <b>Propietario:</b>@ViewBag.pedigree.cat.proprietary<br />
+        </div>
+        <div class="col-sm-4" style="font-size: 10px;">
+            <b>Cor dos Olhos:</b>@ViewBag.pedigree.cat.eye.description<br />
+            <b>Sexo:</b>@ViewBag.pedigree.cat.sex<br />
+            <b>Criador:</b>@ViewBag.pedigree.cat.creator<br />
+        </div>
+        <div class="col-sm-4" style="font-size: 10px;">
+            <b>Nascido em:</b>@ViewBag.pedigree.cat.birth_date.ToString("dd/MM/yyyy")<br />
+            <b>Nº Pedigree:</b>@ViewBag.pedigree.cat.homologation<br />
+            <b>Gatil:</b>@ViewBag.pedigree.cat.cattery<br />
+            <b>Hmlg:</b><br />
+        </div>
+    </div>
+
+    <!-- Headers -->
+    <div class="row pedigree_row">
+        <div class="col-sm-2 pedigree_col">Pais</div>
+        <div class="col-sm-2 pedigree_col">Avós</div>
+        <div class="col-sm-2 pedigree_col">Bisavós</div>
+        <div class="col-sm-2 pedigree_col">Trisavós</div>
+        <div class="col-sm-2 pedigree_col">Tetravós</div>
+    </div>
+
+    <!-- Family tree -->
+    <div class="row pedigree_row">
+        <!-- Pais -->
+        <div class="col-md-2 pedigree_col">
+            <div class="row">
+                @{ 
+                    ViewBag.pais = ViewBag.pedigree.pai;
+                }
+
+                @Html.Partial("Pais")
+            </div>
+            <div class="row">
+                @{
+                    ViewBag.pais = ViewBag.pedigree.mae;
+                }
+
+                @Html.Partial("Pais")
+            </div>
+        </div>
+
+        <!-- Avós -->
+        <div class="col-md-2 pedigree_col">
+            <div class="row pedigree_divisor">
+                @{
+                    ViewBag.avo = ViewBag.pedigree.pai_avo;
+                }
+
+                @Html.Partial("Avos")
+
+                @{
+                    ViewBag.avo = ViewBag.pedigree.pai_avoo;
+                }
+                @Html.Partial("Avos")
+            </div>
+            <div class="row">
+                @{
+                    ViewBag.avo = ViewBag.pedigree.mae_avo;
+                }
+
+                @Html.Partial("Avos")
+                @{
+                    ViewBag.avo = ViewBag.pedigree.mae_avoo;
+                }
+                @Html.Partial("Avos")
+            </div>
+        </div>
+
+        <!-- Bisavós -->
+        <div class="col-md-2 pedigree_col">
+            <div class="row pedigree_divisor">
+                @Html.Partial("Bisavos")
+                @Html.Partial("Bisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Bisavos")
+                @Html.Partial("Bisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Bisavos")
+                @Html.Partial("Bisavos")
+            </div>
+            <div class="row">
+                @Html.Partial("Bisavos")
+                @Html.Partial("Bisavos")
+            </div>
+        </div>
+
+        <!-- Trisavós -->
+        <div class="col-md-2 pedigree_col">
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+            <div class="row">
+                @Html.Partial("Trisavos")
+                @Html.Partial("Trisavos")
+            </div>
+        </div>
+
+        <!-- Tetravós -->
+        <div class="col-md-2 pedigree_col">
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row pedigree_divisor">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+            <div class="row">
+                @Html.Partial("Tetravos")
+                @Html.Partial("Tetravos")
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row pedigree_row" style="margin-top:10px; height: 60px;">
+        <div class="col-sm-4">
+            <b>Data do Registro:</b> 99/99/9999<br />
+            <b>Data da Transferência:</b> 99/99/9999<br />
+
+        </div>
+        <div class="col-sm-4">
+            <b>Microship:</b>abc123 <br />
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".sidebar").addClass("collapse")
+        $("#page-wrapper").css({ 'margin': '0px' })
+    })
+</script>
